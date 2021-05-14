@@ -160,6 +160,11 @@ $scriptblock = {
                     $CCMProcess = Get-WmiObject -Class win32_process -ComputerName $ClientName -Filter "Name = 'ccmexec.exe'"
                     $CCMProcess.Terminate()                   
                 }
+                
+                # Remove o arquivo registry.pol
+                Save-Log -FilePath $FileLogPath -LogMess "Exclui o arquivo Registry.pol para politicas de computador"
+                Remove-Item -path "\\$clientName\admin$\system32\groupPolicy\Machine\Registry.pol" -Force
+
                 # Se WINRM parado
                 if((Get-Service -ComputerName $ClientName -Name "winrm").status -ne "Running"){
                     Save-Log -FilePath $FileLogPath -LogMess "Iniciando WINRM"
