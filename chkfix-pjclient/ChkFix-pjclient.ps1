@@ -1,5 +1,10 @@
 <# #####################################
-Disclaimer: This Sample Code is provided for the purpose of illustration only and is not intended to be used in a production environment.  THIS SAMPLE CODE AND ANY RELATED INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.  We grant You a nonexclusive, royalty-free right to use and modify the Sample Code and to reproduce and distribute the object code form of the Sample Code, provided that You agree: (i) to not use Our name, logo, or trademarks to market Your software product in which the Sample Code is embedded; (ii) to includea valid copyright notice on Your software product in which the Sample Code is embedded; and (iii) to indemnify, hold harmless, and defend Us and Our suppliers from and against any claims or lawsuits, including attorneys’ fees, that arise or result from the use or distribution of the Sample Code.
+Disclaimer: This Sample Code is provided for the purpose of illustration only and is not intended to be used in a production environment.  THIS SAMPLE CODE AND ANY `
+RELATED INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF `
+MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.  We grant You a nonexclusive, royalty-free right to use and modify the Sample Code and to reproduce and `
+distribute the object code form of the Sample Code, provided that You agree: (i) to not use Our name, logo, or trademarks to market Your software product in which the `
+Sample Code is embedded; (ii) to includea valid copyright notice on Your software product in which the Sample Code is embedded; and (iii) to indemnify, hold harmless, `
+and defend Us and Our suppliers from and against any claims or lawsuits, including attorneys’ fees, that arise or result from the use or distribution of the Sample Code.
 Please note: None of the conditions outlined in the disclaimer above will supersede the terms and conditions contained within the Premier Customer Services Description.
 #####################################>
 
@@ -69,7 +74,8 @@ $scriptblock = {
         0.Process - Uma pasta que mostra os clientes que o Script está rodando
         1.DNSFail - Máquinas que não resolveram nome
         2.DNSTOut - Clientes que tem um endereço IP mas estão desligadas ou não são alcançadas
-        3.DNSOthr - Clientes que retornaram código de DNS diferente de timeout. Consultar <https://docs.microsoft.com/en-us/previous-versions/windows/desktop/wmipicmp/win32-pingstatus>
+        3.DNSOthr - Clientes que retornaram código de DNS diferente de timeout. Consultar `
+            <https://docs.microsoft.com/en-us/previous-versions/windows/desktop/wmipicmp/win32-pingstatus>
         4.ClPngOK - Clientes recebem resposta do Ping, mas não conectam no Admin$
         5.ClAccOK - Clientes que tem acesso e executaram o diagnóstico / fix
 
@@ -96,7 +102,7 @@ $scriptblock = {
             # Registrar data e hora do fim do script
             $EndTime = Get-Date
             $TotalTime = $EndTime - $StartTime
-            Save-Log -FilePath $FileLogPath -LogMess ("Tempo total de execução: {0:d2}h {1:d2}m {2:d2}s" -f ($TotalTime.Hours), ($TotalTime.Minutes), ($TotalTime.Seconds) )
+            Save-Log -FilePath $FileLogPath -LogMess ("Tempo total de execução: {0:d2}h {1:d2}m {2:d2}s" -f ($TotalTime.Hours),($TotalTime.Minutes),($TotalTime.Seconds))
             Save-Log -FilePath $FileLogPath -LogMess "Fim Script"
             
             # Mover para o diretório '1.DNSFail'
@@ -114,7 +120,6 @@ $scriptblock = {
 
             if (test-path \\$ClientName\admin$) {
                 Save-Log -FilePath $FileLogPath -LogMess "$("#" * 10) Informações Gerais $("#" * 10)"
-
                 Save-Log -FilePath $FileLogPath -LogMess "O cliente consegue conectar no admin$"
                 
                 # Pega a quantidade de espaço em disco no cliente
@@ -134,9 +139,9 @@ $scriptblock = {
 
                 # Traz informacoes sobre alguns servicos
                 Save-Log -FilePath $FileLogPath -LogMess "Servicos:"
-                $Services = Get-Service -ComputerName $ClientName -Name CcmExec, BITS, Winmgmt, winrm
+                $Services = Get-Service -ComputerName $ClientName -Name CcmExec, BITS, Winmgmt, winrm -ErrorAction SilentlyContinue | Format-Table Status, Name, `
+                    DisplayName, StartType -AutoSize
                 Save-Log -FilePath $FileLogPath -LogMess $Services -Obj
-
                 Save-Log -FilePath $FileLogPath -LogMess "$("#" * 10)"
                 
                 #############
